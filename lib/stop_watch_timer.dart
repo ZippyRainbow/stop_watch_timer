@@ -203,6 +203,10 @@ class StopWatchTimer {
   /// Get milli second from second
   static int getMilliSecFromSecond(int second) => second * 1000;
 
+  static DateTime getStartDateTime(bool isUtc = true) {
+    return DateTime.fromMillisecondsSinceEpoch(_start, isUtc:isUtc);
+  }
+
   /// When finish running timer, it need to dispose.
   Future<void> dispose() async {
     if (_elapsedTime.isClosed) {
