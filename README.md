@@ -383,5 +383,6 @@ For example, 1 hours and 30 minute and 50 second and 20 millisecond => "01:30:50
 
 And can be set enable/disable display time and change split character.
 
+
 [logo_black]: ./img/logo_blk.png
 [never_link_light]: https://neverjp.com
