@@ -318,6 +318,11 @@ class StopWatchTimer {
     }
   }
 
+  //Set the Start time to be a particular date and time.
+  void setStartTime(DateTime startTime) {    
+    _startTime = startTime.millisecondsSinceEpoch;    
+  }
+
   bool _stop() {
     if (isRunning) {
       _timer?.cancel();
