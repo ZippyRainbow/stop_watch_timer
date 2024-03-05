@@ -54,19 +54,24 @@ class StopWatchTimer {
     }
 
     _elapsedTime.listen((value) {
-      _rawTimeController.add(value);
-      onChange?.call(value);
-      final latestSecond = getRawSecond(value);
-      if (_second != latestSecond) {
-        _secondTimeController.add(latestSecond);
-        _second = latestSecond;
-        onChangeRawSecond?.call(latestSecond);
-      }
-      final latestMinute = getRawMinute(value);
-      if (_minute != latestMinute) {
-        _minuteTimeController.add(latestMinute);
-        _minute = latestMinute;
-        onChangeRawMinute?.call(latestMinute);
+      //PWR 05.03.2024 Added in a Check if the Timer is not closed before Adding an OnChange
+      if (!_elapsedTime.isClosed) {
+
+        _rawTimeController.add(value);
+
+        onChange?.call(value);
+        final latestSecond = getRawSecond(value);
+        if (_second != latestSecond) {
+          _secondTimeController.add(latestSecond);
+          _second = latestSecond;
+          onChangeRawSecond?.call(latestSecond);
+        }
+        final latestMinute = getRawMinute(value);
+        if (_minute != latestMinute) {
+          _minuteTimeController.add(latestMinute);
+          _minute = latestMinute;
+          onChangeRawMinute?.call(latestMinute);
+        }
       }
     });
   }
@@ -204,7 +209,7 @@ class StopWatchTimer {
   static int getMilliSecFromSecond(int second) => second * 1000;
 
   /// When finish running timer, it need to dispose.
-  Future<void> dispose() async {
+  Future<void> dispose() async {    
     if (_elapsedTime.isClosed) {
       throw Exception(
         'This instance is already disposed. Please create timer object.',
